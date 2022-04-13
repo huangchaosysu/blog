@@ -254,5 +254,9 @@ kubectl get pod
 
 ![查看状态](/images/3.jpg)
 
+查看fluent bit pod的日志，命令如下：
+
+kubectl logs -l k8s-app=fluentbit
+
 
 [参考文档](https://aws.amazon.com/cn/blogs/china/scheme-of-using-fluent-bit-in-eks-to-collect-application-logs-and-save-them-in-s3/)
