@@ -1,5 +1,8 @@
 ## 在EKS中使用fluent-bit收集各pod的日志(kubectl logs)
 
+本文将介绍如何使用fluent-bit收集kubectl logs podname所看到的log。 本质上， kubectl logs podname命令所看到的日志信息是存在对应的eks node的/var/log/containers目录下. Pod中所运行的程序所有的stdout输出都可以用kubectl logs来查看。
+
+
 1. 创建S3 bucket
 可采用下面AWS Cli命令进行创建S3 bucket
 aws s3 mb s3://fluent-bit-s3-test --region cn-north-1
