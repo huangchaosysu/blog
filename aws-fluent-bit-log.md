@@ -251,6 +251,7 @@ kubectl apply -f fluentbit-daemonset.yml
 kubectl get pod
 
 下面是命令的返回结果，可以看到fluentbit-*是Running状态。
+
 ![查看状态](/images/3.jpg)
 
 
