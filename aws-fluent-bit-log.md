@@ -3,11 +3,11 @@
 本文将介绍如何使用fluent-bit收集kubectl logs podname所看到的log。 本质上， kubectl logs podname命令所看到的日志信息是存在对应的eks node的/var/log/containers目录下. Pod中所运行的程序所有的stdout输出都可以用kubectl logs来查看。
 
 
-1. 创建S3 bucket
+### 创建S3 bucket
 可采用下面AWS Cli命令进行创建S3 bucket
 aws s3 mb s3://fluent-bit-s3-test --region cn-north-1
 
-2. 创建iamserviceaccount
+### 创建iamserviceaccount
 FluentBit在将日志上传到S3时，需要S3的 PutObject 权限。
 
 需要执行下面指令，创建 iamserviceaccount，进行授权。
@@ -56,7 +56,7 @@ FluentBit在将日志上传到S3时，需要S3的 PutObject 权限。
 注意如果使用已有的policy， 那么只需要执行eksctl utils associate-iam-oidc-provider和eksctl create iamserviceaccount这2个命令
 
 
-3. 创建测试用的testapp
+### 创建测试用的testapp
 在测试 testapp 中，运行一个简单shell脚本，这个脚本将日志打印到stdout
 测试 testapp 的 yml 文件如下：
 
@@ -101,7 +101,7 @@ kubectl apply -f testapp.yml
 [2020/11/12-02:58:37]+103+test-deployment-6db76c8fff-j6hhs
 
 
-4. 创建fluent bit config
+### 创建fluent bit config
 对于EKS， pod里面运行的程序输出到stdout的内容会保存到运行该pod的node的/var/log/containers目录下
 
 fluent bit config的示例如下：
@@ -150,7 +150,7 @@ data:
 
 kubectl apply -f fluentbit-config-s3.yml
 
-5. 创建fluent bit daemonset
+### 创建fluent bit daemonset
 fluent bit daemonset的示例如下：
 
 其中需要配置serviceAccountName: s3-putobject
@@ -245,7 +245,7 @@ You must mount them all to your fluentbit pods for proper work:
 kubectl apply -f fluentbit-daemonset.yml
 
 
-6. 查看fluent bit日志，查看在s3中保存的日志
+### 查看fluent bit日志，查看在s3中保存的日志
 查看fluent bit pod是否运行正常，命令如下：
 
 kubectl get pod
